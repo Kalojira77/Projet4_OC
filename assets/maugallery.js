@@ -60,6 +60,7 @@
     $(".gallery").on("click", ".nav-link", $.fn.mauGallery.methods.filterByTag);
     $(".gallery").on("click", ".mg-prev", () =>
       $.fn.mauGallery.methods.prevImage(options.lightboxId)
+     
     );
     $(".gallery").on("click", ".mg-next", () =>
       $.fn.mauGallery.methods.nextImage(options.lightboxId)
@@ -119,7 +120,7 @@
         .attr("src", element.attr("src"));
       $(`#${lightboxId}`).modal("toggle");
     },
-    prevImage() {
+    prevImage() { 
       let activeImage = null;
       $("img.gallery-item").each(function() {
         if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
@@ -145,7 +146,8 @@
           }
         });
       }
-      let index = 0,
+      let index = 0, 
+
         next = null;
 
       $(imagesCollection).each(function(i) {
@@ -154,11 +156,12 @@
         }
       });
       next =
-        imagesCollection[index] ||
+        imagesCollection[index -1] ||  //MODIFIED
         imagesCollection[imagesCollection.length - 1];
       $(".lightboxImage").attr("src", $(next).attr("src"));
+      console.log(index)
     },
-    nextImage() {
+    nextImage() { 
       let activeImage = null;
       $("img.gallery-item").each(function() {
         if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
@@ -184,7 +187,7 @@
           }
         });
       }
-      let index = 0,
+        let index = 0, 
         next = null;
 
       $(imagesCollection).each(function(i) {
@@ -192,8 +195,9 @@
           index = i;
         }
       });
-      next = imagesCollection[index] || imagesCollection[0];
+      next = imagesCollection[index +1] || imagesCollection[0]; // MODIFIED
       $(".lightboxImage").attr("src", $(next).attr("src"));
+      console.log(index)
     },
     createLightBox(gallery, lightboxId, navigation) {
       gallery.append(`<div class="modal fade" id="${
@@ -240,7 +244,7 @@
         return;
       }
       $(".active-tag").removeClass("active active-tag");
-      $(this).addClass("active-tag");
+      $(this).addClass("active active-tag");
 
       var tag = $(this).data("images-toggle");
 
